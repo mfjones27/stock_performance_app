@@ -117,7 +117,7 @@ if (window.location.pathname === '/') {
                         if (resp.ok) {
                             window.location.href = `/stock/${mainTicker}`;
                         } else {
-                            alert('An error occurred while processing your request. Please try again.');
+                            alert('Please try again.');
                         }
                     } else {
                         alert('Main ticker was not found. Please enter a valid ticker symbol.');
@@ -146,7 +146,7 @@ if (window.location.pathname === '/') {
                         if (resp.ok) {
                             window.location.href = `/stock/${mainTicker}`;
                         } else {
-                            alert('An error occurred while processing your request. Please try again.');
+                            alert('An error occurred while processing your request.');
                         }
                     } else {
                         alert('Main ticker was not found. Please enter a valid ticker symbol.');
