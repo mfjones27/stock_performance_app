@@ -43,9 +43,9 @@ def fetch_stock_data(ticker):
         'volume': f'{volume}M',
         'graph': '/static/images/sample-graph.png', # Fig, make graph.
         'metrics': [
-            {'name': '52-Week High', 'value': f'{round(stock_info['fiftyTwoWeekHigh'], 2)}'},
-            {'name': '52-Week Low', 'value': f'{round(stock_info['fiftyTwoWeekLow'], 2)}'},
-            {'name': 'Market Cap', 'value': f'${round(market_cap, 1)} {value}'},
+            {'name': '52-Week High', 'value': f"{round(stock_info['fiftyTwoWeekHigh'], 2)}"},
+            {'name': '52-Week Low', 'value': f"{round(stock_info['fiftyTwoWeekLow'], 2)}"},
+            {'name': 'Market Cap', 'value': f"${round(market_cap, 1)} {value}"},
             {'name': 'PE Ratio', 'value': f'{round(stock_info['trailingPE'], 2)}'},
         ]
     }
