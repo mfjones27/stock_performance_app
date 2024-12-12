@@ -1,0 +1,22 @@
+Stock Name,Ticker,Sector
+Amazon,AMZN,Growth Stocks
+Apple,AAPL,Growth Stocks
+Tesla,TSLA,Growth Stocks
+Shopify,SHOP,Small-Cap and Mid-Cap Stocks
+Square,SQ,Small-Cap and Mid-Cap Stocks
+Roku,ROKU,Small-Cap and Mid-Cap Stocks
+Johnson & Johnson,JNJ,Dividend Growth Stocks
+Procter & Gamble,PG,Dividend Growth Stocks
+Coca-Cola,KO,Dividend Growth Stocks
+NVIDIA,NVDA,Technology and Innovation Stocks
+Alphabet (Google),GOOGL,Technology and Innovation Stocks
+Zoom Video,ZM,Technology and Innovation Stocks
+Alibaba,BABA,Emerging Market Stocks
+Tata Motors,TTM,Emerging Market Stocks
+MercadoLibre,MELI,Emerging Market Stocks
+Ford,F,Cyclical Stocks
+Lennar,LEN,Cyclical Stocks
+Marriott,MAR,Cyclical Stocks
+Berkshire Hathaway,BRK.B,Value Stocks
+JPMorgan Chase,JPM,Value Stocks
+Pfizer,PFE,Value Stocks

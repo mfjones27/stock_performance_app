@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Tracker</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <div class="ticker-container">
+        <div class="ticker">
+            <span class="ticker-item">AAPL - +2.5%</span>
+            <span class="ticker-item">GOOGL - -1.2%</span>
+            <span class="ticker-item">AMZN - +0.8%</span>
+            <span class="ticker-item">MSFT - +1.3%</span>
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+    <footer>
+        <p>&copy; 2024 Stock Tracker. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/js/home.js"></script>
+</body>
+</html>

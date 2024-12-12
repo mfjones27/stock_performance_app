@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block style %}<link rel="stylesheet" href="/static/css/home.css">{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <h1 data-text="Stock Tracker">Stock Tracker</h1>
+    <p>Select your preferences and explore the stock data.</p>
+    <form id="dataForm">
+        <div class="input-grid">
+            <div class="input-group top-left">
+                <label for="ticker">Enter Stock Ticker:</label>
+                <input type="text" name="ticker" id="ticker" placeholder="e.g., AAPL" required>
+            </div>
+
+            <div class="input-group top-right">
+                <label>Select Chart Type:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="chart_type" value="candlestick" checked>
+                        <span>Candlestick</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="chart_type" value="line">
+                        <span>Line</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group bottom-left">
+                <label>Compare with Another Stock?</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="compare" value="yes" id="compare-yes">
+                        Yes
+                    </label>
+                    <label>
+                        <input type="radio" name="compare" value="no" id="compare-no" checked>
+                        No
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group bottom-right">
+                <label for="date-range">Select Date Range:</label>
+                <input type="range" id="date-range" name="date_range" min="1" max="7" step="1" required>
+                <div class="range-labels">
+                    <span id="1">1d</span>
+                    <span id="2">5d</span>
+                    <span id="3">1mo</span>
+                    <span id="4">3mo</span>
+                    <span id="5">6mo</span>
+                    <span id="6">1y</span>
+                    <span id="7">5y</span>
+                </div>
+            </div>         
+        </div>
+        <div class="popup-container" id="popupContainer">
+            <div class="popup">
+                <h2>Enter Ticker to Compare</h2>
+                <input type="text" id="comparisonTicker" name="comparison_ticker" placeholder="e.g., MSFT">
+                <button id="submitComparison">Submit</button>
+                <button id="closePopup">Cancel</button>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">Get Data</button>
+    </form>
+</div>
+{% endblock %}

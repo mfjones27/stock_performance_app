@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block style %}<link rel="stylesheet" href="/static/css/data.css">{% endblock %}
+
+{% block content %}
+<div class="comparison-wrapper {% if comp_stock_data %}compare-mode{% endif %}">
+    <div class="container stock-container">
+        <div class="container">
+            <header class="header">
+                <h1>Stock Details</h1>
+            </header>
+
+            <main class="main-content">
+                <!-- Stock Information Section -->
+                <section class="stock-info">
+                    <h2 class="stock-name">{{ stock_data.name }} ({{ stock_data.ticker }})</h2>
+                    <p class="stock-price"><strong>Price:</strong> ${{ stock_data.price }}</p>
+                    <p class="stock-change"><strong>Daily Change:</strong> {{ stock_data.change }}%</p>
+                    <p class="stock-volume"><strong>Volume:</strong> {{ stock_data.volume }}</p>
+                </section>
+
+                <!-- Graph Section -->
+                <section class="graph-section">
+                    <h3>Performance Over Time</h3>
+                    <div class="graph">
+                        <!-- Primary Graph -->
+                        <iframe src="/dash/primary/" width="100%" height="475px" style="border:none;"></iframe>
+                    </div>
+                </section>
+
+                <!-- Additional Information Section -->
+                <section class="additional-info">
+                    <h3>Key Metrics</h3>
+                    <ul>
+                        {% for metric in stock_data.metrics %}
+                        <li><strong>{{ metric.name }}:</strong> {{ metric.value }}</li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </div>    
+    {% if comp_stock_data %}
+    <div class="container stock-container">
+        <header class="header">
+            <h1>Comparison Stock Details</h1>
+        </header>
+
+        <main class="main-content">
+            <!-- Stock Information Section -->
+            <section class="stock-info">
+                <h2 class="stock-name">{{ comp_stock_data.name }} ({{ comp_stock_data.ticker }})</h2>
+                <p class="stock-price"><strong>Price:</strong> ${{ comp_stock_data.price }}</p>
+                <p class="stock-change"><strong>Daily Change:</strong> {{ comp_stock_data.change }}%</p>
+                <p class="stock-volume"><strong>Volume:</strong> {{ comp_stock_data.volume }}</p>
+            </section>
+
+            <!-- Graph Section -->
+            <section class="graph-section">
+                <h3>Performance Over Time</h3>
+                <div class="graph">
+                    <!-- Comparison Graph -->
+                    <iframe src="/dash/comparison/" width="100%" height="475px" style="border:none;"></iframe>
+                </div>
+            </section>
+
+            <!-- Additional Information Section -->
+            <section class="additional-info">
+                <h3>Key Metrics</h3>
+                <ul>
+                    {% for metric in comp_stock_data.metrics %}
+                    <li><strong>{{ metric.name }}:</strong> {{ metric.value }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </main>
+        
+    </div>
+    {% endif %}
+</div>
+<section>
+    <a href="/" class="back-btn">Back</a>
+</section>
+{% endblock %}
