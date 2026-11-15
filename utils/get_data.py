@@ -30,10 +30,8 @@ def fetch_stock_data(ticker):
     volume = round(calculate_volume(stock_info['volume']), 2)
     market_cap, value = calculate_market_cap(stock_info['marketCap'])
     
-    if stock_price_change > 0:
-        sign = '+'
-    elif stock_price_change < 0:
-        sign = ''
+    # Negative numbers already carry their "-"; only add "+" for gains (0 gets no sign).
+    sign = '+' if stock_price_change > 0 else ''
 
     return {
         'name': stock_info['longName'],
@@ -46,13 +44,27 @@ def fetch_stock_data(ticker):
             {'name': '52-Week High', 'value': f"{round(stock_info['fiftyTwoWeekHigh'], 2)}"},
             {'name': '52-Week Low', 'value': f"{round(stock_info['fiftyTwoWeekLow'], 2)}"},
             {'name': 'Market Cap', 'value': f"${round(market_cap, 1)} {value}"},
-            {'name': 'PE Ratio', 'value': f"{round(stock_info['trailingPE'], 2)}"},
+            {'name': 'PE Ratio', 'value': f"{round(stock_info['trailingPE'], 2)}" if stock_info.get('trailingPE') else 'N/A'},
         ]
     }
 
+def _download(ticker, **kwargs):
+    """yf.download for a single ticker with flat Open/High/Low/Close columns.
+
+    Newer yfinance returns (field, ticker) MultiIndex columns by default, which breaks
+    data['Open'] etc. Flatten them so the charts keep working across versions.
+    """
+    data = yf.download(ticker, progress=False, auto_adjust=False, **kwargs)
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.get_level_values(0)
+    return data
+
+
 def verify_ticker(ticker):
+    if not ticker:
+        return False
     try:
-        data = yf.download(ticker, period='1d')
+        data = _download(ticker, period='1d')
         if data.empty:
             return False
         else:
@@ -63,13 +75,13 @@ def verify_ticker(ticker):
 def get_ohlc_data(ticker, date_range):
     if date_range == '1d':
         interval = '1m'
-        data = yf.download(ticker, period=date_range, interval=interval)
+        data = _download(ticker, period=date_range, interval=interval)
     elif date_range == '5d':
         interval = '30m'
-        data = yf.download(ticker, period=date_range, interval=interval)
+        data = _download(ticker, period=date_range, interval=interval)
         data.index = pd.to_datetime(data.index)
         data = data[~data.index.weekday.isin([5, 6])]
     else:
-        data = yf.download(ticker, period=date_range)
+        data = _download(ticker, period=date_range)
     # Get OHLC data (Open, High, Low, Close)
     return data

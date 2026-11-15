@@ -1,14 +1,18 @@
+import os
+import secrets
+
 import dash
 
 from dash import dcc, html, Dash
-from flask_cors import CORS
 from utils.get_data import *
 from utils.graphing import *
 from flask import Flask, session, request, redirect, render_template, url_for, jsonify
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'
-CORS(app)
+# Session only holds chart preferences, but the signing key must not live in a public
+# repo. Set SECRET_KEY in the host's env; a random one is used otherwise (sessions then
+# reset on restart, which is harmless here).
+app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
 
 primary_dash_app = Dash(
     __name__,
@@ -79,4 +83,5 @@ def display_stock_data(ticker):
     return render_template('data.html', stock_data=stock_data, comp_stock_data=comp_stock_data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Never default to debug: Flask's debugger lets anyone who can reach it run code.
+    app.run(debug=os.environ.get("FLASK_DEBUG") == "1")
